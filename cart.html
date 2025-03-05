@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            background-color: #f3f3f3;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            height: 60px;
+            width: 100%;
+            background-color: #131921;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 150px;
+            height: 60px;
+            background-image: url(logo.jpg);
+            background-size: cover;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .location-icon {
+            font-size: 24px;
+        }
+
+        .location-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .location-text .primary {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .location-text .secondary {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            max-width: 650px;
+        }
+
+        .search-select {
+            height: 40px;
+            padding: 0 10px;
+            border: none;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            background-color: #f3f3f3;
+            font-size: 12px;
+        }
+
+        .search-input {
+            height: 40px;
+            flex-grow: 1;
+            padding: 0 10px;
+            border: none;
+            font-size: 14px;
+        }
+
+        .search-button {
+            height: 40px;
+            width: 45px;
+            background-color: #febd69;
+            border: none;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #f4d078;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .nav-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-icon .icon {
+            font-size: 20px;
+            color: white;
+        }
+
+        .nav-icon .text {
+            text-decoration: none;
+            color: white;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .flag {
+            height: 20px;
+            width: 30px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg');
+            background-size: cover;
+            margin-left: 10px;
+        }
+
+        .cart-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: #B12704;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-time {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .delete-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-button:hover {
+            background-color: #ff1a1a;
+        }
+
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo"></div>
+        <div class="location">
+            <i class="fas fa-location-dot location-icon"></i>
+            <div class="location-text">
+                <div class="primary">Deliver to</div>
+                <div class="secondary">Nepal</div>
+            </div>
+        </div>
+        <div class="search">
+            <select class="search-select">
+                <option>All Categories</option>
+                <option>Electronics</option>
+                <option>Books</option>
+                <option>Clothing</option>
+            </select>
+            <input type="text" placeholder="Search Amazon.in" class="search-input">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="flag"></div>
+        <div class="nav-icons">
+            <div class="nav-icon">
+                <i class="fas fa-user icon"></i>
+                <div class="text">Account</div>
+            </div>
+            <div class="nav-icon">
+                <i class="fas fa-heart icon"></i>
+                <div class="text">Wishlist</div>
+            </div>
+            <div class="nav-icon">
+                <a href="cart.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-shopping-cart icon"></i>
+                    <div class="text">Cart</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-container">
+        <h1>Your Cart</h1>
+        <div id="cart-items"></div>
+        <div class="cart-total">Total: ₹<span id="cart-total">0</span></div>
+    </div>
+
+    <script>
+        let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalElement = document.getElementById('cart-total');
+
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cartItems.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+
+                cartItem.innerHTML = `
+                    <div class="cart-item-image" style="background-image: url(${item.image})"></div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.title}</div>
+                        <div class="cart-item-price">${item.price}</div>
+                        <div class="cart-item-time">Order Placed: ${item.timestamp}</div>
+                    </div>
+                    <button class="delete-button" data-index="${index}">Delete</button>
+                `;
+
+                cartItemsContainer.appendChild(cartItem);
+                const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+                total += price;
+            });
+
+            cartTotalElement.textContent = total.toFixed(2);
+        }
+
+        function deleteItem(index) {
+            cartItems.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            renderCartItems();
+        }
+
+        cartItemsContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-button')) {
+                const index = event.target.getAttribute('data-index');
+                deleteItem(index);
+            }
+        });
+
+        renderCartItems();
+    </script>
+</body>
+
+</html>
